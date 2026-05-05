@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerPath — Job-Skill Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-50:  #EFF6FF;
+    --blue-100: #DBEAFE;
+    --blue-200: #BFDBFE;
+    --blue-300: #93C5FD;
+    --blue-400: #60A5FA;
+    --blue-500: #3B82F6;
+    --blue-600: #2563EB;
+    --blue-700: #1D4ED8;
+    --blue-800: #1E40AF;
+    --blue-900: #1E3A8A;
+    --slate-50:  #F8FAFC;
+    --slate-100: #F1F5F9;
+    --slate-200: #E2E8F0;
+    --slate-300: #CBD5E1;
+    /* Darkened the following for better readability */
+    --slate-400: #475569; 
+    --slate-500: #334155;
+    --slate-600: #1E293B;
+    --slate-700: #0F172A;
+    --slate-800: #0F172A;
+    --slate-900: #020617;
+    --white: #FFFFFF;
+    --accent: #2563EB;
+    --accent-light: #EFF6FF;
+    --teal-500: #14B8A6;
+    --teal-100: #CCFBF1;
+    --teal-800: #115E59;
+    --amber-500: #F59E0B;
+    --amber-100: #FEF3C7;
+    --amber-800: #92400E;
+    --green-500: #22C55E;
+    --green-100: #DCFCE7;
+    --green-800: #166534;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--slate-50);
+    color: var(--slate-800);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--slate-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo {
+    width: 32px; height: 32px;
+    background: var(--blue-600);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-logo svg { width: 18px; height: 18px; }
+  .nav-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--slate-900);
+    letter-spacing: -0.01em;
+  }
+  .nav-badge {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--blue-700);
+    background: var(--blue-100);
+    padding: 3px 10px;
+    border-radius: 99px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, var(--white) 0%, var(--blue-50) 50%, #EEF4FF 100%);
+    border-bottom: 1px solid var(--slate-200);
+    padding: 64px 2rem 56px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-600);
+    background: var(--blue-100);
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.15;
+    color: var(--slate-900);
+    letter-spacing: -0.02em;
+    max-width: 640px;
+    margin: 0 auto 16px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue-600);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--slate-500);
+    max-width: 520px;
+    margin: 0 auto 32px;
+    font-weight: 400; /* Increased from 300 */
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--blue-700);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-lbl {
+    font-size: 12px;
+    color: var(--slate-500); /* Darkened */
+    font-weight: 500;
+  }
+  .hero-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--slate-200);
+    align-self: center;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 2rem;
+  }
+
+  /* ── STEP CARDS ── */
+  .step-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .step-card:nth-child(1) { animation-delay: 0.05s; }
+  .step-card:nth-child(2) { animation-delay: 0.15s; }
+  .step-card:nth-child(3) { animation-delay: 0.25s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    min-width: 32px;
+    background: var(--blue-600);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .step-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--slate-900);
+    margin-bottom: 4px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--slate-500); /* Darkened */
+    font-weight: 400;
+  }
+
+  /* ── ROLE GRID ── */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+  }
+  .role-btn {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--slate-200);
+    background: var(--slate-50);
+    color: var(--slate-600);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .role-btn .role-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--slate-300);
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .role-btn:hover {
+    border-color: var(--blue-300);
+    background: var(--blue-50);
+    color: var(--slate-800);
+  }
+  .role-btn.active {
+    border-color: var(--blue-500);
+    background: var(--blue-50);
+    color: var(--blue-800);
+    font-weight: 600;
+  }
+  .role-btn.active .role-dot {
+    background: var(--blue-500);
+  }
+  .role-limit-note {
+    font-size: 12px;
+    color: var(--slate-500);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* ── SKILL TAGS ── */
+  .skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .skill-tag {
+    padding: 7px 14px;
+    border-radius: 99px;
+    border: 1px solid var(--slate-300);
+    background: var(--white);
+    color: var(--slate-600);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .skill-tag:hover {
+    border-color: var(--blue-300);
+    color: var(--slate-800);
+    background: var(--blue-50);
+  }
+  .skill-tag.owned {
+    background: var(--green-100);
+    border-color: #22C55E;
+    color: var(--green-800);
+    font-weight: 600;
+  }
+  .skill-tag.owned::before {
+    content: '✓ ';
+    font-weight: 700;
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-wrap {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-analyze {
+    padding: 13px 28px;
+    background: var(--blue-600);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .btn-analyze:hover {
+    background: var(--blue-700);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+  }
+  .btn-analyze:active { transform: translateY(0); }
+  .btn-reset {
+    padding: 13px 20px;
+    background: transparent;
+    color: var(--slate-500);
+    border: 1px solid var(--slate-300);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-reset:hover { color: var(--slate-800); border-color: var(--slate-400); }
+  .cta-hint { font-size: 12px; color: var(--slate-500); font-weight: 500; }
+
+  /* ── RESULTS ── */
+  #results { display: none; }
+  #results.visible { display: block; }
+
+  .results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .results-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--slate-900);
+    letter-spacing: -0.01em;
+  }
+  .results-subtitle {
+    font-size: 13px;
+    color: var(--slate-500);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .stat-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: var(--blue-700);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-lbl {
+    font-size: 12px;
+    color: var(--slate-600);
+    font-weight: 600;
+  }
+  .stat-sub {
+    font-size: 11px;
+    color: var(--slate-400);
+    margin-top: 2px;
+  }
+
+  /* rec cards */
+  .recs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 600px) { .recs-grid { grid-template-columns: 1fr; } }
+
+  .rec-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 14px;
+    padding: 20px;
+    transition: box-shadow 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .rec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--blue-400);
+  }
+  .rec-card.rank-1::before { background: var(--blue-600); }
+  .rec-card.rank-2::before { background: var(--blue-500); }
+  .rec-card.rank-3::before { background: var(--blue-400); }
+  .rec-card:hover { box-shadow: 0 4px 16px rgba(15,23,42,0.06); }
+
+  .rec-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+  .rec-rank {
+    font-size: 11px;
+    color: var(--slate-500);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .rec-skill-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--slate-900);
+  }
+  .score-badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .score-high { background: var(--blue-100); color: var(--blue-800); }
+  .score-mid  { background: var(--slate-100); color: var(--slate-600); }
+  .score-low  { background: var(--slate-100); color: var(--slate-500); }
+
+  .rec-bar-track {
+    height: 4px;
+    background: var(--slate-100);
+    border-radius: 99px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .rec-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: var(--blue-400);
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+  .rec-card.rank-1 .rec-bar-fill { background: var(--blue-600); }
+  .rec-card.rank-2 .rec-bar-fill { background: var(--blue-500); }
+
+  .rec-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .role-pill {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--blue-50);
+    color: var(--blue-700);
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .rec-reason {
+    font-size: 12px;
+    color: var(--slate-600);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .rec-cert {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--slate-100);
+    font-size: 11px;
+    color: var(--blue-700);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* overlap section */
+  .overlap-section {
+    margin-bottom: 28px;
+  }
+  .section-heading {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--slate-600);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .overlap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+  }
+  .overlap-card {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .overlap-pair {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--slate-800);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .overlap-arrow { color: var(--blue-500); font-size: 14px; }
+  .overlap-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .overlap-skill {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 4px;
+    color: var(--slate-700);
+    font-weight: 500;
+  }
+
+  /* insight banner */
+  .insight-banner {
+    background: var(--blue-50);
+    border: 1px solid var(--blue-200);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .insight-icon {
+    width: 32px; height: 32px;
+    min-width: 32px;
+    background: var(--blue-100);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue-600);
+    font-size: 15px;
+  }
+  .insight-text {
+    font-size: 13px;
+    color: var(--blue-900);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .insight-text strong { font-weight: 600; }
+
+  /* ── HOW IT WORKS ── */
+  .how-section {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+  }
+  @media (max-width: 600px) { .how-grid { grid-template-columns: 1fr; } }
+  .how-item {}
+  .how-icon {
+    width: 40px; height: 40px;
+    background: var(--blue-50);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    color: var(--blue-600);
+  }
+  .how-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--slate-800);
+    margin-bottom: 6px;
+  }
+  .how-desc {
+    font-size: 13px;
+    color: var(--slate-600);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .how-section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    color: var(--slate-900);
+  }
+  .how-section-sub {
+    font-size: 13px;
+    color: var(--slate-500);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--slate-200);
+    background: var(--white);
+    padding: 28px 2rem;
+    text-align: center;
+  }
+  .footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .footer-course {
+    font-size: 12px;
+    color: var(--slate-600);
+    font-weight: 400;
+    line-height: 1.7;
+  }
+  .footer-course strong {
+    color: var(--slate-900);
+    font-weight: 600;
+  }
+  .footer-divider { margin: 0 8px; color: var(--slate-300); }
+
+  /* ── EMPTY / ERROR STATES ── */
+  .empty-recs {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    color: var(--slate-600);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .empty-recs strong { color: var(--slate-800); display: block; font-size: 16px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="5" r="2.5" fill="white"/>
+          <path d="M3 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-title">CareerPath</span>
+    </div>
+    <span class="nav-badge">MIS 432 · AI in Business</span>
+  </div>
+</nav>
+
+<section class="hero">
+  <span class="hero-eyebrow">Intelligent Skill Gap Analysis</span>
+  <h1>Find the skills that<br><em>move your career forward</em></h1>
+  <p class="hero-sub">Select the roles you're targeting and the skills you already have. Our matching engine ranks exactly which skills to learn next — and why they matter for your career path.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">12</span>
+      <span class="hero-stat-lbl">Target job roles</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">19</span>
+      <span class="hero-stat-lbl">Skills mapped</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">90+</span>
+      <span class="hero-stat-lbl">Role-skill connections</span>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Choose your target roles</div>
+        <div class="step-desc">Which positions are you applying to? Select up to four that match your career direction.</div>
+      </div>
+    </div>
+    <div class="role-grid" id="role-grid"></div>
+    <p class="role-limit-note" id="role-limit-note"></p>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Mark the skills you already have</div>
+        <div class="step-desc">Include coursework, internships, personal projects, and certifications. Don't undersell yourself.</div>
+      </div>
+    </div>
+    <div class="skills-wrap" id="skills-wrap"></div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Generate your personalized analysis</div>
+        <div class="step-desc">Our algorithm scores every skill gap by how often it appears across your target roles and how highly employers prioritize it.</div>
+      </div>
+    </div>
+    <div class="cta-wrap">
+      <button class="btn-analyze" id="btn-analyze" onclick="runAnalysis()">Analyze my skill gaps →</button>
+      <button class="btn-reset" onclick="resetAll()">Reset</button>
+      <span class="cta-hint" id="cta-hint">Select at least one target role to begin.</span>
+    </div>
+  </div>
+
+  <div id="results">
+
+    <div class="results-header">
+      <div>
+        <div class="results-title">Your Skill Gap Analysis</div>
+        <div class="results-subtitle" id="results-subtitle"></div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-val" id="stat-coverage">—</div>
+        <div class="stat-lbl">Role coverage</div>
+        <div class="stat-sub">of required skills you already have</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-gaps">—</div>
+        <div class="stat-lbl">Skill gaps identified</div>
+        <div class="stat-sub">prioritized by employer demand</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-top">—</div>
+        <div class="stat-lbl">Top skill match score</div>
+        <div class="stat-sub">out of 100 possible points</div>
+      </div>
+    </div>
+
+    <div class="insight-banner" id="insight-banner">
+      <div class="insight-icon">💡</div>
+      <div class="insight-text" id="insight-text"></div>
+    </div>
+
+    <p class="section-heading">Top skill recommendations</p>
+    <div class="recs-grid" id="recs-grid"></div>
+
+    <div class="overlap-section" id="overlap-section"></div>
+
+  </div>
+
+  <div class="how-section">
+    <div class="how-section-title">How the matching engine works</div>
+    <div class="how-section-sub">Built on the same logic used in drug-disease discovery research — adapted for careers.</div>
+    <div class="how-grid">
+      <div class="how-item">
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="5" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="13" r="3" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="9" x2="10" y2="6" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="9" x2="10" y2="12" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="how-title">Graph-based mapping</div>
+        <div class="how-desc">Every job role and skill is a node in a network. Connections between them represent real employer requirements pulled from job description data.</div>
+      </div>
+      <div class="how-item">
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="10" width="3" height="6" rx="1" fill="currentColor" opacity=".4"/><rect x="7" y="6" width="3" height="10" rx="1" fill="currentColor" opacity=".6"/><rect x="12" y="2" width="3" height="14" rx="1" fill="currentColor"/></svg>
+        </div>
+        <div class="how-title">Strength scoring</div>
+        <div class="how-desc">Each gap skill earns a score from 0–100 based on two factors: how many of your target roles require it (breadth) and how highly each role prioritizes it (depth).</div>
+      </div>
+      <div class="how-item">
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L10.8 7H16L11.6 10.2L13.4 15.2L9 12L4.6 15.2L6.4 10.2L2 7H7.2L9 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="how-title">Shared overlap detection</div>
+        <div class="how-desc">Like finding drugs that treat multiple diseases through shared biological targets, the system finds skills that bridge multiple roles — maximizing your return on learning time.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-course">
+      <strong>MIS 432: AI in Business</strong>
+      <span class="footer-divider">·</span>
+      Western Washington University
+      <span class="footer-divider">·</span>
+      Lab Challenge: Job-Skill Intelligence System
+      <span class="footer-divider">·</span>
+      Designed to demonstrate applied AI and graph-based recommendation logic in a business context.
+    </p>
+  </div>
+</footer>
+
+<script>
+const JOBS = {
+  "Business Analyst": {
+    skills: ["SQL","Power BI","Excel","Process Mapping","Requirements Gathering","Stakeholder Communication","Python","Agile/Scrum"]
+  },
+  "Data Analyst": {
+    skills: ["SQL","Python","Tableau","Excel","Statistical Analysis","Power BI","Data Cleaning","R"]
+  },
+  "MIS Specialist": {
+    skills: ["SQL","ERP Systems","Process Mapping","Excel","Requirements Gathering","Project Management","Stakeholder Communication","Agile/Scrum"]
+  },
+  "Supply Chain Analyst": {
+    skills: ["Excel","SQL","Power BI","Logistics Coordination","ERP Systems","Forecasting","Process Mapping","Project Management"]
+  },
+  "Operations Analyst": {
+    skills: ["Excel","SQL","Process Mapping","Statistical Analysis","Power BI","Project Management","Forecasting","Stakeholder Communication"]
+  },
+  "Pricing Analyst": {
+    skills: ["Excel","SQL","Statistical Analysis","Python","R","Forecasting","Power BI","Requirements Gathering"]
+  },
+  "IT Business Analyst": {
+    skills: ["Requirements Gathering","Agile/Scrum","SQL","Process Mapping","Stakeholder Communication","ERP Systems","Project Management","Data Cleaning"]
+  },
+  "Logistics Coordinator": {
+    skills: ["Logistics Coordination","ERP Systems","Excel","Stakeholder Communication","Process Mapping","Forecasting","Project Management","SQL"]
+  },
+  /* NEW ROLES ADDED BELOW */
+  "Systems Analyst": {
+    skills: ["SQL","Requirements Gathering","Process Mapping","ERP Systems","IT Infrastructure","Agile/Scrum","Stakeholder Communication","Data Cleaning"]
+  },
+  "Project Coordinator": {
+    skills: ["Project Management","Agile/Scrum","Stakeholder Communication","Excel","Process Mapping","Requirements Gathering","Risk Assessment","ERP Systems"]
+  },
+  "Financial Analyst": {
+    skills: ["Excel","SQL","Statistical Analysis","Forecasting","Power BI","Python","Data Cleaning","Risk Assessment"]
+  },
+  "Database Administrator": {
+    skills: ["SQL","Data Cleaning","Python","Project Management","IT Infrastructure","R","Requirements Gathering","Statistical Analysis"]
+  }
+};
+
+const CERTS = {
+  "SQL": "Google Data Analytics Certificate",
+  "Power BI": "Microsoft PL-300 (Power BI Data Analyst)",
+  "Python": "Python for Everybody — Coursera",
+  "Tableau": "Tableau Desktop Specialist",
+  "Agile/Scrum": "Certified Scrum Master (CSM) or PMI-ACP",
+  "Project Management": "Google Project Management Certificate",
+  "ERP Systems": "SAP Certified Associate — Business Process",
+  "Statistical Analysis": "Statistics with R Specialization",
+  "R": "Statistics with R Specialization",
+  "Forecasting": "APICS CPIM — Supply Chain Planning",
+  "IT Infrastructure": "Google IT Support Professional Certificate",
+  "Risk Assessment": "PMI Risk Management Professional (PMI-RMP)"
+};
+
+const ALL_SKILLS = [...new Set(Object.values(JOBS).flatMap(j => j.skills))].sort();
+
+let selectedRoles = [];
+let ownedSkills = [];
+
+// ── INIT ──
+function init() {
+  const roleGrid = document.getElementById('role-grid');
+  roleGrid.innerHTML = Object.keys(JOBS).map(r => `
+    <button class="role-btn" id="role-${CSS.escape(r)}" onclick="toggleRole('${r}')">
+      <span class="role-dot"></span>${r}
+    </button>
+  `).join('');
+
+  const skillsWrap = document.getElementById('skills-wrap');
+  skillsWrap.innerHTML = ALL_SKILLS.map(s => `
+    <span class="skill-tag" id="skill-${CSS.escape(s)}" onclick="toggleSkill('${s}')">${s}</span>
+  `).join('');
+
+  updateHint();
+}
+
+function toggleRole(r) {
+  if (selectedRoles.includes(r)) {
+    selectedRoles = selectedRoles.filter(x => x !== r);
+  } else {
+    if (selectedRoles.length >= 4) return;
+    selectedRoles.push(r);
+  }
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  selectedRoles.forEach(r => {
+    const btn = document.getElementById('role-' + CSS.escape(r));
+    if (btn) btn.classList.add('active');
+  });
+  updateHint();
+}
+
+function toggleSkill(s) {
+  if (ownedSkills.includes(s)) {
+    ownedSkills = ownedSkills.filter(x => x !== s);
+    const el = document.getElementById('skill-' + CSS.escape(s));
+    if (el) el.classList.remove('owned');
+  } else {
+    ownedSkills.push(s);
+    const el = document.getElementById('skill-' + CSS.escape(s));
+    if (el) el.classList.add('owned');
+  }
+  updateHint();
+}
+
+function updateHint() {
+  const hint = document.getElementById('cta-hint');
+  const note = document.getElementById('role-limit-note');
+  if (selectedRoles.length === 0) {
+    hint.textContent = 'Select at least one target role to begin.';
+  } else {
+    const gaps = ALL_SKILLS.filter(s => !ownedSkills.includes(s) && selectedRoles.some(r => JOBS[r].skills.includes(s))).length;
+    hint.textContent = `${selectedRoles.length} role${selectedRoles.length > 1 ? 's' : ''} selected · ${ownedSkills.length} skills marked · ${gaps} potential gaps to analyze`;
+  }
+  note.textContent = selectedRoles.length >= 4 ? 'Maximum of 4 roles selected.' : '';
+}
+
+function scoreSkill(skill, roles) {
+  let roleCount = 0, totalWeight = 0;
+  const matchedRoles = [];
+  roles.forEach(role => {
+    const idx = JOBS[role].skills.indexOf(skill);
+    if (idx !== -1) {
+      roleCount++;
+      totalWeight += (JOBS[role].skills.length - idx) / JOBS[role].skills.length;
+      matchedRoles.push(role);
+    }
+  });
+  const score = roles.length > 0
+    ? (roleCount / roles.length) * 0.6 + (totalWeight / roles.length) * 0.4
+    : 0;
+  return { score, roleCount, matchedRoles };
+}
+
+function runAnalysis() {
+  if (selectedRoles.length === 0) {
+    alert('Please select at least one target role before running the analysis.');
+    return;
+  }
+
+  // compute scores
+  const missing = ALL_SKILLS.filter(s => !ownedSkills.includes(s));
+  const scored = missing
+    .map(skill => ({ skill, ...scoreSkill(skill, selectedRoles) }))
+    .filter(r => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 6);
+
+  // coverage stat
+  const requiredSkills = [...new Set(selectedRoles.flatMap(r => JOBS[r].skills))];
+  const covered = ownedSkills.filter(s => requiredSkills.includes(s)).length;
+  const coveragePct = requiredSkills.length > 0 ? Math.round((covered / requiredSkills.length) * 100) : 0;
+
+  // overlaps
+  const overlaps = [];
+  for (let i = 0; i < selectedRoles.length; i++) {
+    for (let j = i + 1; j < selectedRoles.length; j++) {
+      const a = new Set(JOBS[selectedRoles[i]].skills);
+      const common = JOBS[selectedRoles[j]].skills.filter(s => a.has(s));
+      if (common.length > 0) overlaps.push({ pair: [selectedRoles[i], selectedRoles[j]], common });
+    }
+  }
+
+  // ── render ──
+  document.getElementById('results-subtitle').textContent =
+    `Based on ${selectedRoles.join(', ')}`;
+
+  document.getElementById('stat-coverage').textContent = coveragePct + '%';
+  document.getElementById('stat-gaps').textContent = scored.length;
+  document.getElementById('stat-top').textContent = scored.length > 0 ? Math.round(scored[0].score * 100) : '—';
+
+  // insight
+  const topSkill = scored[0];
+  if (topSkill) {
+    const allRoles = topSkill.matchedRoles.join(', ');
+    document.getElementById('insight-text').innerHTML =
+      `<strong>Your highest-priority gap is ${topSkill.skill}.</strong> It appears across ${topSkill.matchedRoles.length} of your ${selectedRoles.length} target role${selectedRoles.length > 1 ? 's' : ''} (${allRoles}). Acquiring this single skill would have the greatest immediate impact on your application competitiveness.`;
+  } else {
+    document.getElementById('insight-banner').style.display = 'none';
+  }
+
+  // recs
+  const recsGrid = document.getElementById('recs-grid');
+  if (scored.length === 0) {
+    recsGrid.innerHTML = `<div class="empty-recs" style="grid-column: 1/-1"><strong>Great news — no major gaps detected!</strong>You already have strong coverage across your selected target roles. Consider deepening expertise in your top skills or pursuing advanced certifications.</div>`;
+  } else {
+    recsGrid.innerHTML = scored.map((r, i) => {
+      const pct = Math.round(r.score * 100);
+      const pillClass = pct >= 65 ? 'score-high' : pct >= 40 ? 'score-mid' : 'score-low';
+      const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+      const certHTML = CERTS[r.skill]
+        ? `<div class="rec-cert">🎓 Recommended cert: ${CERTS[r.skill]}</div>` : '';
+      const rolePills = r.matchedRoles.map(rl => `<span class="role-pill">${rl}</span>`).join('');
+      const breadth = r.matchedRoles.length === selectedRoles.length
+        ? `Needed in all ${selectedRoles.length} of your target roles`
+        : `Required in ${r.matchedRoles.length} of ${selectedRoles.length} target roles`;
+      return `
+        <div class="rec-card ${rankClass}">
+          <div class="rec-top">
+            <div>
+              <div class="rec-rank">Priority #${i + 1}</div>
+              <div class="rec-skill-name">${r.skill}</div>
+            </div>
+            <span class="score-badge ${pillClass}">${pct} pts</span>
+          </div>
+          <div class="rec-bar-track">
+            <div class="rec-bar-fill" style="width: ${pct}%"></div>
+          </div>
+          <div class="rec-roles">${rolePills}</div>
+          <div class="rec-reason">${breadth}. Employers in these roles list it as a core requirement, giving it a high priority score in our matching engine. Adding this skill directly strengthens your fit for the roles above.</div>
+          ${certHTML}
+        </div>`;
+    }).join('');
+  }
+
+  // overlaps
+  const overlapSection = document.getElementById('overlap-section');
+  if (overlaps.length > 0) {
+    overlapSection.innerHTML = `
+      <p class="section-heading">Shared skill bridges between your roles</p>
+      <div class="overlap-grid">
+        ${overlaps.map(o => `
+          <div class="overlap-card">
+            <div class="overlap-pair">
+              <span>${o.pair[0]}</span>
+              <span class="overlap-arrow">↔</span>
+              <span>${o.pair[1]}</span>
+            </div>
+            <div class="overlap-skills">
+              ${o.common.map(s => `<span class="overlap-skill">${s}</span>`).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>`;
+  } else {
+    overlapSection.innerHTML = '';
+  }
+
+  const resultsEl = document.getElementById('results');
+  resultsEl.classList.add('visible');
+  setTimeout(() => resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+}
+
+function resetAll() {
+  selectedRoles = [];
+  ownedSkills = [];
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.skill-tag').forEach(b => b.classList.remove('owned'));
+  document.getElementById('results').classList.remove('visible');
+  document.getElementById('insight-banner').style.display = '';
+  updateHint();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// CSS.escape polyfill for older browsers
+if (!window.CSS || !CSS.escape) {
+  CSS = window.CSS || {};
+  CSS.escape = function(v) {
+    return v.replace(/[^a-zA-Z0-9_-]/g, s => '\\' + s);
+  };
+}
+
+init();
+</script>
+</body>
+</html>
